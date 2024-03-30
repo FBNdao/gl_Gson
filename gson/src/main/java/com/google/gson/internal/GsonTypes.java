@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+
 package com.google.gson.internal;
 
 import static com.google.gson.internal.GsonPreconditions.checkArgument;
