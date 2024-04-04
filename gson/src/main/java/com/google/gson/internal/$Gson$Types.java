@@ -169,9 +169,38 @@ public final class $Gson$Types {
   private static boolean equal(Object a, Object b) {
     return Objects.equals(a, b);
   }
+    public static boolean equals(Type a, Type b) {
+        if (a == b) {
+            return true;
+        }
+        return false;
+    }
 
-  /** Returns true if {@code a} and {@code b} are equal. */
-  public static boolean equals(Type a, Type b) {
+    public static boolean equals(Class<?> a, Class<?> b) {
+        return   a.equals(b);
+
+    }
+    public static boolean equals(ParameterizedType a, ParameterizedType b) {
+        return equal(a.getOwnerType(), b.getOwnerType()) &&
+                  a.getRawType().equals(b.getRawType()) &&
+                  Arrays.equals(a.getActualTypeArguments(), b.getActualTypeArguments());
+    }
+
+    public static boolean equals(GenericArrayType a, GenericArrayType b) {
+        return equals(a.getGenericComponentType(), b.getGenericComponentType());
+    }
+
+    public static boolean equals(WildcardType a, WildcardType b) {
+        return Arrays.equals(a.getUpperBounds(), b.getUpperBounds()) && Arrays.equals(a.getLowerBounds(), b.getLowerBounds());
+    }
+
+    public static boolean equals(TypeVariable<?> a, TypeVariable<?> b) {
+        return a.getGenericDeclaration() == b.getGenericDeclaration() && a.getName().equals(b.getName());
+    }
+
+
+    /** Returns true if {@code a} and {@code b} are equal. */
+  /**public static boolean equals(Type a, Type b) {
     if (a == b) {
       // also handles (a == null && b == null)
       return true;
@@ -224,7 +253,7 @@ public final class $Gson$Types {
       // This isn't a type we support. Could be a generic array type, wildcard type, etc.
       return false;
     }
-  }
+  }**/
 
   public static String typeToString(Type type) {
     return type instanceof Class ? ((Class<?>) type).getName() : type.toString();
