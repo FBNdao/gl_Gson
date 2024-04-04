@@ -41,12 +41,11 @@ import org.junit.Test;
 public class ArrayTest {
   private Gson gson;
   private String liste;
-    //String expected = "[\"foo\",null,\"bar\"]";
-
-  @Before
+    public static final String MANIF = "Manufacturing";
   public void setUp() throws Exception {
     gson = new Gson();
     this.liste = "[\"foo\",null,\"bar\"]";
+
   }
 
   @Test
@@ -241,8 +240,8 @@ public class ArrayTest {
   @Test
   public void testMultidimensionalArraysSerialization() {
     String[][] items = {
-      {"3m Co", "71.72", "0.02", "0.03", "4/2 12:00am", "Manufacturing"},
-      {"Alcoa Inc", "29.01", "0.42", "1.47", "4/1 12:00am", "Manufacturing"}
+      {"3m Co", "71.72", "0.02", "0.03", "4/2 12:00am", MANIF},
+      {"Alcoa Inc", "29.01", "0.42", "1.47", "4/1 12:00am", MANIF}
     };
     String json = gson.toJson(items);
     assertThat(json).contains("[[\"3m Co");
@@ -276,7 +275,7 @@ public class ArrayTest {
             + "['Alcoa Inc','29.01','0.42','1.47','4/1 12:00am','Manufacturing']]";
     String[][] items = gson.fromJson(json, String[][].class);
     assertThat(items[0][0]).isEqualTo("3m Co");
-    assertThat(items[1][5]).isEqualTo("Manufacturing");
+    assertThat(items[1][5]).isEqualTo(MANIF);
   }
 
   @Test
