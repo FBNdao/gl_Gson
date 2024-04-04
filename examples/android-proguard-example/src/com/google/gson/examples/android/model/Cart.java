@@ -54,7 +54,7 @@ public class Cart {
   }
 
   @Override
-  public String toString() {
+  public void toString() {
     StringBuilder itemsText = new StringBuilder();
     boolean first = true;
     if (lineItems != null) {
@@ -73,8 +73,8 @@ public class Cart {
         itemsText.append(item);
       }
     }
-    return "[BUYER: " + buyerName + "; CC: " + creditCard + "; "
-    + "LINE_ITEMS: " + itemsText.toString() + "]";
+    System.out.println( "[BUYER: " + buyerName + "; CC: " + creditCard + "; "
+    + "LINE_ITEMS: " + itemsText.toString() + "]");
   }
 
   @SuppressWarnings("unchecked")
