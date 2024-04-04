@@ -39,9 +39,9 @@ import org.junit.Test;
  * @author Joel Leitch
  */
 public class ArrayTest {
+    public static final String MANIF = "Manufacturing";
   private Gson gson;
   private String liste;
-    public static final String MANIF = "Manufacturing";
   public void setUp() throws Exception {
     gson = new Gson();
     this.liste = "[\"foo\",null,\"bar\"]";
