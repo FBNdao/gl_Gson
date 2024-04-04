@@ -40,10 +40,13 @@ import org.junit.Test;
  */
 public class ArrayTest {
   private Gson gson;
+  private String liste;
+    //String expected = "[\"foo\",null,\"bar\"]";
 
   @Before
   public void setUp() throws Exception {
     gson = new Gson();
+    this.liste = "[\"foo\",null,\"bar\"]";
   }
 
   @Test
@@ -90,16 +93,14 @@ public class ArrayTest {
   @Test
   public void testNullsInArraySerialization() {
     String[] array = {"foo", null, "bar"};
-    String expected = "[\"foo\",null,\"bar\"]";
     String json = gson.toJson(array);
-    assertThat(json).isEqualTo(expected);
+    assertThat(json).isEqualTo(liste);
   }
 
   @Test
   public void testNullsInArrayDeserialization() {
-    String json = "[\"foo\",null,\"bar\"]";
     String[] expected = {"foo", null, "bar"};
-    String[] target = gson.fromJson(json, expected.getClass());
+    String[] target = gson.fromJson(liste, expected.getClass());
     assertThat(target).asList().containsAnyIn(expected);
   }
 
@@ -121,9 +122,8 @@ public class ArrayTest {
   public void testNullsInArrayWithSerializeNullPropertySetSerialization() {
     gson = new GsonBuilder().serializeNulls().create();
     String[] array = {"foo", null, "bar"};
-    String expected = "[\"foo\",null,\"bar\"]";
     String json = gson.toJson(array);
-    assertThat(json).isEqualTo(expected);
+    assertThat(json).isEqualTo(liste);
   }
 
   @Test
