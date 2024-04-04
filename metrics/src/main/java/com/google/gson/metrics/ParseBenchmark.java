@@ -273,7 +273,7 @@ public final class ParseBenchmark {
 
   private static class GsonDomParser implements Parser {
     @Override
-    public void parse(char[] data, Document document) throws Exception {
+    public void parse(char[] data, Document document) {
       JsonParser.parseReader(new CharArrayReader(data));
     }
   }
@@ -310,24 +310,24 @@ public final class ParseBenchmark {
   static class Tweet {
     @JsonProperty String coordinates;
     @JsonProperty boolean favorited;
-    @JsonProperty Date created_at;
+    @JsonProperty Date createdAt;
     @JsonProperty boolean truncated;
-    @JsonProperty Tweet retweeted_status;
-    @JsonProperty String id_str;
-    @JsonProperty String in_reply_to_id_str;
+    @JsonProperty Tweet retweetedStatus;
+    @JsonProperty String idStr;
+    @JsonProperty String inReplyToIdStr;
     @JsonProperty String contributors;
     @JsonProperty String text;
     @JsonProperty long id;
-    @JsonProperty String retweet_count;
-    @JsonProperty String in_reply_to_status_id_str;
+    @JsonProperty String retweetCount;
+    @JsonProperty String inReplyToStatusIdStr;
     @JsonProperty Object geo;
     @JsonProperty boolean retweeted;
-    @JsonProperty String in_reply_to_user_id;
-    @JsonProperty String in_reply_to_screen_name;
+    @JsonProperty String inReplyToUserId;
+    @JsonProperty String inReplyToScreenName;
     @JsonProperty Object place;
     @JsonProperty User user;
     @JsonProperty String source;
-    @JsonProperty String in_reply_to_user_id_str;
+    @JsonProperty String inReplyToUserIdStr;
   }
 
   @SuppressWarnings("MemberName")
