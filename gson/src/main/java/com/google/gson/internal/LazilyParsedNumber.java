@@ -78,6 +78,23 @@ public final class LazilyParsedNumber extends Number {
     return value;
   }
 
+    @Override
+    public int hashCode() {
+        return value.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof LazilyParsedNumber) {
+            LazilyParsedNumber other = (LazilyParsedNumber) obj;
+            return value.equals(other.value);
+        }
+        return false;
+    }
+
   /**
    * If somebody is unlucky enough to have to serialize one of these, serialize it as a BigDecimal
    * so that they won't need Gson on the other side to deserialize it.
@@ -92,20 +109,5 @@ public final class LazilyParsedNumber extends Number {
     throw new InvalidObjectException("Deserialization is unsupported");
   }
 
-  @Override
-  public int hashCode() {
-    return value.hashCode();
-  }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj instanceof LazilyParsedNumber) {
-      LazilyParsedNumber other = (LazilyParsedNumber) obj;
-      return value.equals(other.value);
-    }
-    return false;
-  }
 }
