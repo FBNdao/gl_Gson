@@ -166,95 +166,72 @@ public final class $Gson$Types {
     }
   }
 
-  private static boolean equal(Object a, Object b) {
+  private static boolean objectEqual(Object a, Object b) {
     return Objects.equals(a, b);
   }
-    public static boolean equals(Type a, Type b) {
-        if (a == b) {
-            return true;
-        }
-        return false;
-    }
 
-    public static boolean equals(Class<?> a, Class<?> b) {
-        return   a.equals(b);
+  public static boolean equals(Type a, Type b) {
+    return a == b;
+  }
 
-    }
-    public static boolean equals(ParameterizedType a, ParameterizedType b) {
-        return equal(a.getOwnerType(), b.getOwnerType()) &&
-                  a.getRawType().equals(b.getRawType()) &&
-                  Arrays.equals(a.getActualTypeArguments(), b.getActualTypeArguments());
-    }
+  public static boolean equals(Class<?> a, Class<?> b) {
+    return a.equals(b);
+  }
 
-    public static boolean equals(GenericArrayType a, GenericArrayType b) {
-        return equals(a.getGenericComponentType(), b.getGenericComponentType());
-    }
+  public static boolean equals(ParameterizedType a, ParameterizedType b) {
+    return objectEqual(a.getOwnerType(), b.getOwnerType())
+        && a.getRawType().equals(b.getRawType())
+        && Arrays.equals(a.getActualTypeArguments(), b.getActualTypeArguments());
+  }
 
-    public static boolean equals(WildcardType a, WildcardType b) {
-        return Arrays.equals(a.getUpperBounds(), b.getUpperBounds()) && Arrays.equals(a.getLowerBounds(), b.getLowerBounds());
-    }
+  public static boolean equals(GenericArrayType a, GenericArrayType b) {
+    return equals(a.getGenericComponentType(), b.getGenericComponentType());
+  }
 
-    public static boolean equals(TypeVariable<?> a, TypeVariable<?> b) {
-        return a.getGenericDeclaration() == b.getGenericDeclaration() && a.getName().equals(b.getName());
-    }
+  public static boolean equals(WildcardType a, WildcardType b) {
+    return Arrays.equals(a.getUpperBounds(), b.getUpperBounds())
+        && Arrays.equals(a.getLowerBounds(), b.getLowerBounds());
+  }
 
+  public static boolean equals(TypeVariable<?> a, TypeVariable<?> b) {
+    return a.getGenericDeclaration() == b.getGenericDeclaration()
+        && a.getName().equals(b.getName());
+  }
 
-    /** Returns true if {@code a} and {@code b} are equal. */
-  /**public static boolean equals(Type a, Type b) {
-    if (a == b) {
-      // also handles (a == null && b == null)
-      return true;
-
-    } else if (a instanceof Class) {
-      // Class already specifies equals().
-      return a.equals(b);
-
-    } else if (a instanceof ParameterizedType) {
-      if (!(b instanceof ParameterizedType)) {
-        return false;
-      }
-
-      // TODO: save a .clone() call
-      ParameterizedType pa = (ParameterizedType) a;
-      ParameterizedType pb = (ParameterizedType) b;
-      return equal(pa.getOwnerType(), pb.getOwnerType())
-          && pa.getRawType().equals(pb.getRawType())
-          && Arrays.equals(pa.getActualTypeArguments(), pb.getActualTypeArguments());
-
-    } else if (a instanceof GenericArrayType) {
-      if (!(b instanceof GenericArrayType)) {
-        return false;
-      }
-
-      GenericArrayType ga = (GenericArrayType) a;
-      GenericArrayType gb = (GenericArrayType) b;
-      return equals(ga.getGenericComponentType(), gb.getGenericComponentType());
-
-    } else if (a instanceof WildcardType) {
-      if (!(b instanceof WildcardType)) {
-        return false;
-      }
-
-      WildcardType wa = (WildcardType) a;
-      WildcardType wb = (WildcardType) b;
-      return Arrays.equals(wa.getUpperBounds(), wb.getUpperBounds())
-          && Arrays.equals(wa.getLowerBounds(), wb.getLowerBounds());
-
-    } else if (a instanceof TypeVariable) {
-      if (!(b instanceof TypeVariable)) {
-        return false;
-      }
-      TypeVariable<?> va = (TypeVariable<?>) a;
-      TypeVariable<?> vb = (TypeVariable<?>) b;
-      return va.getGenericDeclaration() == vb.getGenericDeclaration()
-          && va.getName().equals(vb.getName());
-
-    } else {
-      // This isn't a type we support. Could be a generic array type, wildcard type, etc.
-      return false;
-    }
-  }**/
-
+  /** Returns true if {@code a} and {@code b} are equal. */
+  /**
+   * public static boolean equals(Type a, Type b) { if (a == b) { // also handles (a == null && b ==
+   * null) return true;
+   *
+   * <p>} else if (a instanceof Class) { // Class already specifies equals(). return a.equals(b);
+   *
+   * <p>} else if (a instanceof ParameterizedType) { if (!(b instanceof ParameterizedType)) { return
+   * false; }
+   *
+   * <p>// TODO: save a .clone() call ParameterizedType pa = (ParameterizedType) a;
+   * ParameterizedType pb = (ParameterizedType) b; return equal(pa.getOwnerType(),
+   * pb.getOwnerType()) && pa.getRawType().equals(pb.getRawType()) &&
+   * Arrays.equals(pa.getActualTypeArguments(), pb.getActualTypeArguments());
+   *
+   * <p>} else if (a instanceof GenericArrayType) { if (!(b instanceof GenericArrayType)) { return
+   * false; }
+   *
+   * <p>GenericArrayType ga = (GenericArrayType) a; GenericArrayType gb = (GenericArrayType) b;
+   * return equals(ga.getGenericComponentType(), gb.getGenericComponentType());
+   *
+   * <p>} else if (a instanceof WildcardType) { if (!(b instanceof WildcardType)) { return false; }
+   *
+   * <p>WildcardType wa = (WildcardType) a; WildcardType wb = (WildcardType) b; return
+   * Arrays.equals(wa.getUpperBounds(), wb.getUpperBounds()) && Arrays.equals(wa.getLowerBounds(),
+   * wb.getLowerBounds());
+   *
+   * <p>} else if (a instanceof TypeVariable) { if (!(b instanceof TypeVariable)) { return false; }
+   * TypeVariable<?> va = (TypeVariable<?>) a; TypeVariable<?> vb = (TypeVariable<?>) b; return
+   * va.getGenericDeclaration() == vb.getGenericDeclaration() && va.getName().equals(vb.getName());
+   *
+   * <p>} else { // This isn't a type we support. Could be a generic array type, wildcard type, etc.
+   * return false; } }*
+   */
   public static String typeToString(Type type) {
     return type instanceof Class ? ((Class<?>) type).getName() : type.toString();
   }
@@ -406,7 +383,7 @@ public final class $Gson$Types {
         Type componentType = original.getComponentType();
         Type newComponentType =
             resolve(context, contextRawType, componentType, visitedTypeVariables);
-        toResolve = equal(componentType, newComponentType) ? original : arrayOf(newComponentType);
+        toResolve = objectEqual(componentType, newComponentType) ? original : arrayOf(newComponentType);
         break;
 
       } else if (toResolve instanceof GenericArrayType) {
@@ -414,20 +391,20 @@ public final class $Gson$Types {
         Type componentType = original.getGenericComponentType();
         Type newComponentType =
             resolve(context, contextRawType, componentType, visitedTypeVariables);
-        toResolve = equal(componentType, newComponentType) ? original : arrayOf(newComponentType);
+        toResolve = objectEqual(componentType, newComponentType) ? original : arrayOf(newComponentType);
         break;
 
       } else if (toResolve instanceof ParameterizedType) {
         ParameterizedType original = (ParameterizedType) toResolve;
         Type ownerType = original.getOwnerType();
         Type newOwnerType = resolve(context, contextRawType, ownerType, visitedTypeVariables);
-        boolean changed = !equal(newOwnerType, ownerType);
+        boolean changed = !objectEqual(newOwnerType, ownerType);
 
         Type[] args = original.getActualTypeArguments();
         for (int t = 0, length = args.length; t < length; t++) {
           Type resolvedTypeArgument =
               resolve(context, contextRawType, args[t], visitedTypeVariables);
-          if (!equal(resolvedTypeArgument, args[t])) {
+          if (!objectEqual(resolvedTypeArgument, args[t])) {
             if (!changed) {
               args = args.clone();
               changed = true;
